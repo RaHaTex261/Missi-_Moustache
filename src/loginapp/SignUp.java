@@ -304,7 +304,7 @@ public class SignUp extends javax.swing.JFrame {
 
                 pst.setString(1, signUpEmail.getText());
                 pst.setString(2, signUpUserName.getText());
-                //pst.setString(3, signUpPassword.getText());
+                //pst.setString(4, "User");
                 pst.setString(3, h.doHashing(signUpPassword.getText()));
                 pst.execute();
                 JOptionPane.showMessageDialog(null, "New User registered Susccessfully");
