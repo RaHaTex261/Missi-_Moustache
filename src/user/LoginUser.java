@@ -123,44 +123,48 @@ public class LoginUser extends javax.swing.JFrame {
 		});
 
 		javax.swing.GroupLayout LeftLayout = new javax.swing.GroupLayout(Left);
-		LeftLayout.setHorizontalGroup(LeftLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(LeftLayout.createSequentialGroup().addGroup(LeftLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(LeftLayout.createSequentialGroup().addContainerGap().addComponent(jLabel1))
-						.addGroup(LeftLayout.createSequentialGroup().addGap(33).addGroup(LeftLayout
-								.createParallelGroup(Alignment.LEADING)
-								.addGroup(Alignment.TRAILING, LeftLayout.createSequentialGroup()
-										.addComponent(loginSignUp)
-										.addPreferredGap(ComponentPlacement.RELATED, 181, Short.MAX_VALUE)
-										.addComponent(quitLogin))
-								.addGroup(LeftLayout.createParallelGroup(Alignment.LEADING, false)
-										.addComponent(loginEmail, GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
-										.addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 114,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(loginPassword)
-										.addComponent(jLabel3, GroupLayout.PREFERRED_SIZE, 227,
-												GroupLayout.PREFERRED_SIZE)
-										.addComponent(loginLogin, GroupLayout.PREFERRED_SIZE, 163,
-												GroupLayout.PREFERRED_SIZE)))))
-						.addContainerGap()));
-		LeftLayout.setVerticalGroup(LeftLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(LeftLayout.createSequentialGroup().addGap(57).addComponent(jLabel1).addGap(18)
-						.addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(loginEmail, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addComponent(jLabel3, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addComponent(loginPassword, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-						.addGap(18).addComponent(loginLogin, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
-						.addGroup(LeftLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(LeftLayout.createSequentialGroup().addGap(78)
-										.addComponent(quitLogin, GroupLayout.PREFERRED_SIZE, 22,
-												GroupLayout.PREFERRED_SIZE)
-										.addContainerGap(67, Short.MAX_VALUE))
-								.addGroup(Alignment.TRAILING, LeftLayout.createSequentialGroup()
-										.addPreferredGap(ComponentPlacement.RELATED).addComponent(loginSignUp,
-												GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
-										.addGap(47)))));
+		LeftLayout.setHorizontalGroup(
+			LeftLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(LeftLayout.createSequentialGroup()
+					.addGroup(LeftLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(LeftLayout.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(jLabel1))
+						.addGroup(LeftLayout.createSequentialGroup()
+							.addGap(33)
+							.addGroup(LeftLayout.createParallelGroup(Alignment.TRAILING, false)
+								.addGroup(Alignment.LEADING, LeftLayout.createSequentialGroup()
+									.addComponent(loginSignUp)
+									.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addComponent(quitLogin))
+								.addComponent(loginEmail, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
+								.addComponent(jLabel2, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE)
+								.addComponent(loginPassword, Alignment.LEADING)
+								.addComponent(jLabel3, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 227, GroupLayout.PREFERRED_SIZE)
+								.addComponent(loginLogin, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 163, GroupLayout.PREFERRED_SIZE))))
+					.addContainerGap())
+		);
+		LeftLayout.setVerticalGroup(
+			LeftLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(LeftLayout.createSequentialGroup()
+					.addGap(57)
+					.addComponent(jLabel1)
+					.addGap(18)
+					.addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(loginEmail, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(jLabel3, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(loginPassword, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(loginLogin, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(LeftLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(loginSignUp, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
+						.addComponent(quitLogin, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
+					.addGap(47))
+		);
 		Left.setLayout(LeftLayout);
 
 		jPanel1.add(Left);

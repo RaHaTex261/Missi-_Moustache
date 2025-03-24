@@ -10,4 +10,3 @@ public class LoginApp {
         LoginFrame.setLocationRelativeTo(null);
     }
     
-}
