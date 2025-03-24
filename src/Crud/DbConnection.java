@@ -2,6 +2,10 @@
 package Crud;
 
 import java.sql.*;
+import user.InterfaceUser;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class DbConnection {
     Connection connection = null;
@@ -15,4 +19,9 @@ public class DbConnection {
             return null;
         }
     }
+
+	public static user.Connection getConnection() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
