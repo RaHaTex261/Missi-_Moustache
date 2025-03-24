@@ -300,7 +300,7 @@ public class SignupUser extends javax.swing.JFrame {
        
         if (!(usernom == null || usernom.trim().isEmpty() || mail == null || mail.trim().isEmpty() || pass.trim().isEmpty() || a == 0 || b == 0 || c == 0)) {
             try{
-                String sql = "INSERT INTO Accounts VALUES (?,?,?,?,?);";
+                String sql = "INSERT INTO Accounts VALUES (,?,?,?,?);";
                 pst = con.prepareStatement(sql);
 
 
