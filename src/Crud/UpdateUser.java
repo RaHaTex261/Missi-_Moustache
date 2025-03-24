@@ -15,7 +15,7 @@ import user.InterfaceUser;
 import user.LoginUser;
 import user.SignupUser;
 
-public class UpDate extends javax.swing.JFrame {
+public class UpdateUser extends javax.swing.JFrame {
     private static final long serialVersionUID = 1L;
     private javax.swing.JPanel Left;
     private javax.swing.JPanel Right;
@@ -39,7 +39,7 @@ public class UpDate extends javax.swing.JFrame {
     ResultSet rs = null;
     Hashing h = new Hashing();
     
-    public UpDate(String nom) {
+    public UpdateUser(String nom) {
         initComponents();
         this.nom = nom;
         con = DbConnection.connectionDB();
@@ -344,13 +344,13 @@ public class UpDate extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UpDate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UpDate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UpDate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UpDate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UpdateUser.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         
 
