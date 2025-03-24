@@ -305,17 +305,22 @@ public class SignUp extends javax.swing.JFrame {
              mail == null || mail.trim().isEmpty() ||
              pass.trim().isEmpty() || a == 0 || b == 0 || c == 0)) {
             try{
-                String sql = "INSERT INTO Accounts VALUES (?,?,?,?,?);";
+                String sql = "INSERT INTO Accounts VALUES (?,?,?);";
                 pst = con.prepareStatement(sql);
 
 
                 pst.setString(2, signUpUserName.getText());
+<<<<<<< HEAD
                 pst.setString(3, signUpEmail.getText());
                 pst.setString(4, h.doHashing(signUpPassword.getText()));
                 pst.setString(5, "User");                      
                 
                
                 
+=======
+                //pst.setString(3, signUpPassword.getText());
+                pst.setString(3, h.doHashing(signUpPassword.getText()));
+>>>>>>> 8072c267fc94a2d2e17c95f0cafe49a58c70ab75
                 pst.execute();
                 JOptionPane.showMessageDialog(null, "Nouvel utilisateur enregistré avec succès");
             }
