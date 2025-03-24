@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
 public class InterfaceUser extends JFrame {
     private static final long serialVersionUID = 1L;
     private JTextArea chatArea;
@@ -248,4 +249,7 @@ public class InterfaceUser extends JFrame {
     public static void main(String[] args) {
         new InterfaceUser("Chat Application");
     }
+    
+
+
 }
