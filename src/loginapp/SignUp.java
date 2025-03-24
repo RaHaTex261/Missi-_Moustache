@@ -10,10 +10,32 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.GroupLayout;
+import java.awt.SystemColor;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 
 public class SignUp extends javax.swing.JFrame {
 
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private javax.swing.JPanel Left;
+    private javax.swing.JPanel Right;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton quitSignUp;
+    private javax.swing.JTextField signUpEmail;
+    private javax.swing.JButton signUpLogin;
+    private javax.swing.JPasswordField signUpPassword;
+    private javax.swing.JButton signUpSignUp;
+    private javax.swing.JTextField signUpUserName;
     
     Connection con = null;
     PreparedStatement pst = null;
@@ -27,7 +49,6 @@ public class SignUp extends javax.swing.JFrame {
         con = DbConnection.connectionDB();
     }
     
-    @SuppressWarnings("unchecked")
     
     private boolean isValidStrongPassword(String password) {
         String regex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
@@ -37,27 +58,25 @@ public class SignUp extends javax.swing.JFrame {
     }
     private boolean isValidEmail(String password) {
         String regex = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"+"[_A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-        //String r = isValidEmail
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(password);
         return matcher.matches();
     }
     
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
         Right = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         Left = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel1.setBackground(SystemColor.inactiveCaptionText);
         jLabel2 = new javax.swing.JLabel();
         signUpUserName = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         signUpPassword = new javax.swing.JPasswordField();
         signUpSignUp = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
         signUpLogin = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         signUpEmail = new javax.swing.JTextField();
@@ -71,38 +90,27 @@ public class SignUp extends javax.swing.JFrame {
         jPanel1.setPreferredSize(new java.awt.Dimension(800, 500));
         jPanel1.setLayout(null);
 
-        Right.setBackground(new java.awt.Color(0, 102, 102));
+        Right.setBackground(SystemColor.textHighlight);
         Right.setPreferredSize(new java.awt.Dimension(400, 500));
-
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/vnv_140px.png"))); // NOI18N
-
-        jLabel6.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 18)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 18));
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("A V A    Corporation");
 
         javax.swing.GroupLayout RightLayout = new javax.swing.GroupLayout(Right);
-        Right.setLayout(RightLayout);
         RightLayout.setHorizontalGroup(
-            RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(RightLayout.createSequentialGroup()
-                .addContainerGap(121, Short.MAX_VALUE)
-                .addGroup(RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RightLayout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(122, 122, 122))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RightLayout.createSequentialGroup()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(62, 62, 62))))
+        	RightLayout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(RightLayout.createSequentialGroup()
+        			.addContainerGap(121, Short.MAX_VALUE)
+        			.addComponent(jLabel6, GroupLayout.PREFERRED_SIZE, 217, GroupLayout.PREFERRED_SIZE)
+        			.addGap(62))
         );
         RightLayout.setVerticalGroup(
-            RightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(RightLayout.createSequentialGroup()
-                .addGap(179, 179, 179)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(210, Short.MAX_VALUE))
+        	RightLayout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(RightLayout.createSequentialGroup()
+        			.addGap(257)
+        			.addComponent(jLabel6, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
+        			.addContainerGap(212, Short.MAX_VALUE))
         );
+        Right.setLayout(RightLayout);
 
         jPanel1.add(Right);
         Right.setBounds(0, 0, 400, 500);
@@ -110,23 +118,23 @@ public class SignUp extends javax.swing.JFrame {
         Left.setBackground(new java.awt.Color(255, 255, 255));
         Left.setPreferredSize(new java.awt.Dimension(400, 500));
 
-        jLabel1.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 36));
         jLabel1.setForeground(new java.awt.Color(0, 102, 102));
-        jLabel1.setText("SIGN UP");
+        jLabel1.setText("Inscription Utilisateur");
         jLabel1.setAlignmentX(0.5F);
 
-        jLabel2.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 18));
         jLabel2.setForeground(new java.awt.Color(0, 102, 102));
-        jLabel2.setText("Username");
+        jLabel2.setText("Nom d'utilisateur");
 
-        signUpUserName.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 14)); // NOI18N
+        signUpUserName.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 14));
         signUpUserName.setForeground(new java.awt.Color(0, 102, 102));
 
-        jLabel3.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 18));
         jLabel3.setForeground(new java.awt.Color(0, 102, 102));
-        jLabel3.setText("Password");
+        jLabel3.setText("Mot de passe");
 
-        signUpPassword.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 14)); // NOI18N
+        signUpPassword.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 14));
         signUpPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 signUpPasswordActionPerformed(evt);
@@ -134,20 +142,17 @@ public class SignUp extends javax.swing.JFrame {
         });
 
         signUpSignUp.setBackground(new java.awt.Color(0, 102, 102));
-        signUpSignUp.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 18)); // NOI18N
+        signUpSignUp.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 18));
         signUpSignUp.setForeground(new java.awt.Color(255, 255, 255));
-        signUpSignUp.setText("Sign Up");
+        signUpSignUp.setText("Enregistrer");
         signUpSignUp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 signUpSignUpActionPerformed(evt);
             }
         });
 
-        jLabel4.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 12)); // NOI18N
-        jLabel4.setText("I don't have an account ");
-
         signUpLogin.setBackground(new java.awt.Color(254, 254, 254));
-        signUpLogin.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 14)); // NOI18N
+        signUpLogin.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 14));
         signUpLogin.setForeground(new java.awt.Color(0, 102, 102));
         signUpLogin.setText("Login");
         signUpLogin.addActionListener(new java.awt.event.ActionListener() {
@@ -156,15 +161,15 @@ public class SignUp extends javax.swing.JFrame {
             }
         });
 
-        jLabel7.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 18)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 18));
         jLabel7.setForeground(new java.awt.Color(0, 102, 102));
         jLabel7.setText("Email");
 
-        signUpEmail.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 14)); // NOI18N
+        signUpEmail.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 14));
         signUpEmail.setForeground(new java.awt.Color(0, 102, 102));
 
         quitSignUp.setBackground(new java.awt.Color(254, 254, 254));
-        quitSignUp.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 14)); // NOI18N
+        quitSignUp.setFont(new java.awt.Font("Microsoft JhengHei UI", 0, 14));
         quitSignUp.setForeground(new java.awt.Color(0, 102, 102));
         quitSignUp.setText("Quiter");
         quitSignUp.addActionListener(new java.awt.event.ActionListener() {
@@ -174,58 +179,58 @@ public class SignUp extends javax.swing.JFrame {
         });
 
         javax.swing.GroupLayout LeftLayout = new javax.swing.GroupLayout(Left);
-        Left.setLayout(LeftLayout);
         LeftLayout.setHorizontalGroup(
-            LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LeftLayout.createSequentialGroup()
-                .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(LeftLayout.createSequentialGroup()
-                        .addGap(33, 33, 33)
-                        .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(signUpSignUp, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, LeftLayout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(signUpLogin)
-                                .addGap(18, 18, 18)
-                                .addComponent(quitSignUp))
-                            .addComponent(signUpPassword, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(signUpEmail, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(signUpUserName, javax.swing.GroupLayout.Alignment.LEADING)))
-                    .addGroup(LeftLayout.createSequentialGroup()
-                        .addGap(125, 125, 125)
-                        .addComponent(jLabel1)))
-                .addContainerGap(53, Short.MAX_VALUE))
+        	LeftLayout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(LeftLayout.createSequentialGroup()
+        			.addGroup(LeftLayout.createParallelGroup(Alignment.LEADING)
+        				.addGroup(LeftLayout.createSequentialGroup()
+        					.addContainerGap()
+        					.addComponent(jLabel1))
+        				.addGroup(LeftLayout.createSequentialGroup()
+        					.addGap(33)
+        					.addGroup(LeftLayout.createParallelGroup(Alignment.LEADING)
+        						.addGroup(Alignment.TRAILING, LeftLayout.createSequentialGroup()
+        							.addComponent(signUpLogin)
+        							.addPreferredGap(ComponentPlacement.RELATED, 211, Short.MAX_VALUE)
+        							.addComponent(quitSignUp))
+        						.addGroup(LeftLayout.createParallelGroup(Alignment.LEADING, false)
+        							.addComponent(jLabel7, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
+        							.addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 205, GroupLayout.PREFERRED_SIZE)
+        							.addComponent(signUpPassword, GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
+        							.addComponent(jLabel3, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE)
+        							.addComponent(signUpSignUp, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+        							.addGroup(LeftLayout.createSequentialGroup()
+        								.addGap(10)
+        								.addComponent(signUpUserName))
+        							.addComponent(signUpEmail, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 318, GroupLayout.PREFERRED_SIZE)))))
+        			.addContainerGap())
         );
         LeftLayout.setVerticalGroup(
-            LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(LeftLayout.createSequentialGroup()
-                .addGap(66, 66, 66)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(signUpUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(signUpEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(signUpPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(signUpSignUp, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(signUpLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(quitSignUp, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(47, Short.MAX_VALUE))
+        	LeftLayout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(LeftLayout.createSequentialGroup()
+        			.addGap(54)
+        			.addComponent(jLabel1)
+        			.addGap(18)
+        			.addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(signUpUserName, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+        			.addGap(18)
+        			.addComponent(jLabel7, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(signUpEmail, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.UNRELATED)
+        			.addComponent(jLabel3, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(signUpPassword, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+        			.addGap(18)
+        			.addComponent(signUpSignUp, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+        			.addGap(37)
+        			.addGroup(LeftLayout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(quitSignUp, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(signUpLogin, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
+        			.addGap(29))
         );
+        Left.setLayout(LeftLayout);
 
         jPanel1.add(Left);
         Left.setBounds(400, 0, 400, 500);
@@ -246,22 +251,22 @@ public class SignUp extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
-    private void signUpPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpPasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_signUpPasswordActionPerformed
-
-    private void signUpLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpLoginActionPerformed
+    private void signUpPasswordActionPerformed(java.awt.event.ActionEvent evt) {
         
-        Login LoginFrame = new Login();
+    }
+
+    private void signUpLoginActionPerformed(java.awt.event.ActionEvent evt) {
+        LoginUser LoginFrame = new LoginUser();
         LoginFrame.setVisible(true);
         LoginFrame.pack();
         LoginFrame.setLocationRelativeTo(null);
         this.dispose();
-    }//GEN-LAST:event_signUpLoginActionPerformed
+    }
 
-    private void signUpSignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpSignUpActionPerformed
+    @SuppressWarnings("deprecation")
+	private void signUpSignUpActionPerformed(java.awt.event.ActionEvent evt) {
         
         String mail = signUpEmail.getText();
         String usernom = signUpUserName.getText();
@@ -269,64 +274,65 @@ public class SignUp extends javax.swing.JFrame {
         
         
         
-        int b=0;
+        int a=0;
         if(usernom.matches("[a-zA-Z]+")){
+            a=1;
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Nom d'utilisateur non valide!");
+        }
+        
+        
+        int b=0;
+        if(isValidEmail(mail)){
             b=1;
         }
         else{
-            JOptionPane.showMessageDialog(null, "Username NOT Valide!");
+            JOptionPane.showMessageDialog(null, "Email non valide!");
         }
         
         
         int c=0;
-        if(isValidEmail(mail)){
+        if(isValidStrongPassword(pass)){
             c=1;
         }
         else{
-            JOptionPane.showMessageDialog(null, "Email NOT Valide!");
-        }
-        
-        
-        int a=0;
-        if(isValidStrongPassword(pass)){
-            a=1;
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "Password NOT Valide!");
+            JOptionPane.showMessageDialog(null, "Mot de passe non valide!");
         }
         
        
-        if(!(mail == null || mail.trim().isEmpty() || usernom == null || usernom.trim().isEmpty() || pass.trim().isEmpty() || a == 0 || b == 0 || c == 0)){
+        if (!(usernom == null || usernom.trim().isEmpty() ||
+             mail == null || mail.trim().isEmpty() ||
+             pass.trim().isEmpty() || a == 0 || b == 0 || c == 0)) {
             try{
                 String sql = "INSERT INTO Accounts VALUES (?,?,?,?,?);";
                 pst = con.prepareStatement(sql);
 
 
-                pst.setString(1, signUpEmail.getText());
                 pst.setString(2, signUpUserName.getText());
-                pst.setString(3, h.doHashing(signUpPassword.getText()));
-                pst.setString(4, "User");
-                //pst.setInt(5, 1);
+                pst.setString(3, signUpEmail.getText());
+                pst.setString(4, h.doHashing(signUpPassword.getText()));
+                pst.setString(5, "User");                      
+                
                
                 
                 pst.execute();
-                JOptionPane.showMessageDialog(null, "New User registered Susccessfully");
+                JOptionPane.showMessageDialog(null, "Nouvel utilisateur enregistré avec succès");
             }
             catch(Exception e){
-                JOptionPane.showMessageDialog(null, " Registration failed try an over Username !!");
+                JOptionPane.showMessageDialog(null, " L'inscription a échoué, essayez un autre nom d'utilisateur !!");
                 try {
                     con.close();
                 } catch (SQLException ex) {
                     Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                //JOptionPane.showMessageDialog(null, "Fermeture avec succe!!");
-                //this.dispose();
+                
                 return;
             }
 
             try {
                 con.close();
-                //JOptionPane.showMessageDialog(null, "Fermeture avec succe!!");
+                
                 Welcome welcom = new Welcome(signUpEmail.getText());
                 welcom.setVisible(true);
                 welcom.pack();
@@ -340,34 +346,16 @@ public class SignUp extends javax.swing.JFrame {
         }
         
         
-    }//GEN-LAST:event_signUpSignUpActionPerformed
+    }
 
-    private void quitSignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitSignUpActionPerformed
-        Login LoginFrame = new Login();
+    private void quitSignUpActionPerformed(java.awt.event.ActionEvent evt) {
+        LoginUser LoginFrame = new LoginUser();
         LoginFrame.setVisible(true);
         LoginFrame.pack();
         LoginFrame.setLocationRelativeTo(null);
         this.dispose();
-    }//GEN-LAST:event_quitSignUpActionPerformed
+    }
 
     
-    
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel Left;
-    private javax.swing.JPanel Right;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JButton quitSignUp;
-    private javax.swing.JTextField signUpEmail;
-    private javax.swing.JButton signUpLogin;
-    private javax.swing.JPasswordField signUpPassword;
-    private javax.swing.JButton signUpSignUp;
-    private javax.swing.JTextField signUpUserName;
-    // End of variables declaration//GEN-END:variables
+
 }

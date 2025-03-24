@@ -12,6 +12,21 @@ import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 public class UpDate extends javax.swing.JFrame {
+    private static final long serialVersionUID = 1L;
+    private javax.swing.JPanel Left;
+    private javax.swing.JPanel Right;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton quitSignUp;
+    private javax.swing.JTextField signUpEmail;
+    private javax.swing.JPasswordField signUpPassword;
+    private javax.swing.JButton signUpSignUp;
+    private javax.swing.JTextField signUpUserName;
 
     public String nom;
     
@@ -27,7 +42,7 @@ public class UpDate extends javax.swing.JFrame {
     }
 
 
-    @SuppressWarnings("unchecked")
+
     
     private boolean isValidStrongPassword(String password) {
         String regex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
@@ -44,7 +59,7 @@ public class UpDate extends javax.swing.JFrame {
         return matcher.matches();
     }
     
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+   
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
@@ -223,13 +238,14 @@ public class UpDate extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
-    private void signUpPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpPasswordActionPerformed
+    private void signUpPasswordActionPerformed(java.awt.event.ActionEvent evt) {
         
-    }//GEN-LAST:event_signUpPasswordActionPerformed
+    }
 
-    private void signUpSignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signUpSignUpActionPerformed
+    @SuppressWarnings("deprecation")
+	private void signUpSignUpActionPerformed(java.awt.event.ActionEvent evt) {
         
         String mail = signUpEmail.getText();
         String usernom = signUpUserName.getText();
@@ -241,7 +257,7 @@ public class UpDate extends javax.swing.JFrame {
             b=1;
         }
         else{
-            JOptionPane.showMessageDialog(null, "Username NOT Valide!");
+            JOptionPane.showMessageDialog(null, "Nom d'utilisateur non valide!");
         }
         
         
@@ -250,7 +266,7 @@ public class UpDate extends javax.swing.JFrame {
             c=1;
         }
         else{
-            JOptionPane.showMessageDialog(null, "Email NOT Valide!");
+            JOptionPane.showMessageDialog(null, "Email non valide!");
         }
         
         
@@ -259,7 +275,7 @@ public class UpDate extends javax.swing.JFrame {
             a=1;
         }
         else{
-            JOptionPane.showMessageDialog(null, "Password NOT Valide!");
+            JOptionPane.showMessageDialog(null, "Mot de passe non valide!");
         }
         
         
@@ -278,20 +294,20 @@ public class UpDate extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Modification successfull!!");
             }
             catch(Exception e){
-                //JOptionPane.showMessageDialog(null, " Registration failed try an over Username !!");
+               
                 try {
                     con.close();
                 } catch (SQLException ex) {
                     Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                //JOptionPane.showMessageDialog(null, "Fermeture avec succe!!");
+                
                 this.dispose();
                 return;
             }
 
             try {
                 con.close();
-                //JOptionPane.showMessageDialog(null, "Fermeture avec succe!!");
+                
                 Welcome welcom = new Welcome(signUpUserName.getText());
                 welcom.setVisible(true);
                 welcom.pack();
@@ -303,23 +319,19 @@ public class UpDate extends javax.swing.JFrame {
             }
         }  
         
-    }//GEN-LAST:event_signUpSignUpActionPerformed
+    }
 
-    private void quitSignUpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitSignUpActionPerformed
-        Login LoginFrame = new Login();
+    private void quitSignUpActionPerformed(java.awt.event.ActionEvent evt) {
+        LoginUser LoginFrame = new LoginUser();
         LoginFrame.setVisible(true);
         LoginFrame.pack();
         LoginFrame.setLocationRelativeTo(null);
         this.dispose();
-    }//GEN-LAST:event_quitSignUpActionPerformed
+    }
 
 
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -336,25 +348,10 @@ public class UpDate extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(UpDate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
+        
 
-        /* Create and display the form */
+        
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel Left;
-    private javax.swing.JPanel Right;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JButton quitSignUp;
-    private javax.swing.JTextField signUpEmail;
-    private javax.swing.JPasswordField signUpPassword;
-    private javax.swing.JButton signUpSignUp;
-    private javax.swing.JTextField signUpUserName;
-    // End of variables declaration//GEN-END:variables
+
 }

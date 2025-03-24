@@ -1,11 +1,10 @@
-
 package loginapp;
 
 public class LoginApp {
 
     public static void main(String[] args) {
         
-        Login LoginFrame = new Login();
+        LoginUser LoginFrame = new LoginUser();
         LoginFrame.setVisible(true);
         LoginFrame.pack();
         LoginFrame.setLocationRelativeTo(null);
