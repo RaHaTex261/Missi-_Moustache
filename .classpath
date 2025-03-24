@@ -7,5 +7,6 @@
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="H:/Université Maurice Cours/Cours/Qualité Code/Projet/Miisé_Moustache/Missi-_Moustache/sqlite-jdbc-3.7.2.jar"/>
+	<classpathentry kind="lib" path="sqlite-jdbc-3.7.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
