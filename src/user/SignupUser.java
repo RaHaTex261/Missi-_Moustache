@@ -1,5 +1,5 @@
 
-package loginapp;
+package user;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,9 +14,11 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
 import java.awt.SystemColor;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import Crud.DbConnection;	
+import Crud.Hashing;
 
 
-public class SignUp extends javax.swing.JFrame {
+public class SignupUser extends javax.swing.JFrame {
 
     /**
 	 * 
@@ -44,7 +46,7 @@ public class SignUp extends javax.swing.JFrame {
     
     
     
-    public SignUp() {
+    public SignupUser() {
         initComponents();
         con = DbConnection.connectionDB();
     }
@@ -305,22 +307,20 @@ public class SignUp extends javax.swing.JFrame {
              mail == null || mail.trim().isEmpty() ||
              pass.trim().isEmpty() || a == 0 || b == 0 || c == 0)) {
             try{
-                String sql = "INSERT INTO Accounts VALUES (?,?,?);";
+                String sql = "INSERT INTO Accounts VALUES (?,?,?,?,?);";
                 pst = con.prepareStatement(sql);
 
 
                 pst.setString(2, signUpUserName.getText());
-<<<<<<< HEAD
                 pst.setString(3, signUpEmail.getText());
                 pst.setString(4, h.doHashing(signUpPassword.getText()));
                 pst.setString(5, "User");                      
                 
                
                 
-=======
+
                 //pst.setString(3, signUpPassword.getText());
                 pst.setString(3, h.doHashing(signUpPassword.getText()));
->>>>>>> 8072c267fc94a2d2e17c95f0cafe49a58c70ab75
                 pst.execute();
                 JOptionPane.showMessageDialog(null, "Nouvel utilisateur enregistré avec succès");
             }
@@ -329,7 +329,7 @@ public class SignUp extends javax.swing.JFrame {
                 try {
                     con.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(SignupUser.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
                 return;
@@ -338,7 +338,7 @@ public class SignUp extends javax.swing.JFrame {
             try {
                 con.close();
                 
-                Welcome welcom = new Welcome(signUpEmail.getText());
+                InterfaceUser welcom = new InterfaceUser(signUpEmail.getText());
                 welcom.setVisible(true);
                 welcom.pack();
                 welcom.setLocationRelativeTo(null);
@@ -353,7 +353,10 @@ public class SignUp extends javax.swing.JFrame {
         
     }
 
-    private void quitSignUpActionPerformed(java.awt.event.ActionEvent evt) {
+
+
+
+	private void quitSignUpActionPerformed(java.awt.event.ActionEvent evt) {
         LoginUser LoginFrame = new LoginUser();
         LoginFrame.setVisible(true);
         LoginFrame.pack();

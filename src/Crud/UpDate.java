@@ -1,5 +1,5 @@
 
-package loginapp;
+package Crud;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,6 +10,10 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
+
+import user.InterfaceUser;
+import user.LoginUser;
+import user.SignupUser;
 
 public class UpDate extends javax.swing.JFrame {
     private static final long serialVersionUID = 1L;
@@ -298,7 +302,7 @@ public class UpDate extends javax.swing.JFrame {
                 try {
                     con.close();
                 } catch (SQLException ex) {
-                    Logger.getLogger(SignUp.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(SignupUser.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
                 this.dispose();
@@ -308,7 +312,7 @@ public class UpDate extends javax.swing.JFrame {
             try {
                 con.close();
                 
-                Welcome welcom = new Welcome(signUpUserName.getText());
+                InterfaceUser welcom = new InterfaceUser(signUpUserName.getText());
                 welcom.setVisible(true);
                 welcom.pack();
                 welcom.setLocationRelativeTo(null);

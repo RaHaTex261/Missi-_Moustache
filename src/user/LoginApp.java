@@ -1,4 +1,4 @@
-package loginapp;
+package user;
 
 public class LoginApp {
 

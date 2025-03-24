@@ -1,16 +1,19 @@
-package loginapp;
+package user;
+
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
+import Crud.DbConnection;
+import Crud.Hashing;
 
 public class LoginUser extends javax.swing.JFrame {
 
@@ -198,7 +201,7 @@ public class LoginUser extends javax.swing.JFrame {
     }
 
     private void loginSignUpActionPerformed(java.awt.event.ActionEvent evt) {
-        SignUp SignUpFrame = new SignUp();
+        SignupUser SignUpFrame = new SignupUser();
         SignUpFrame.setVisible(true);
         SignUpFrame.pack();
         SignUpFrame.setLocationRelativeTo(null);
@@ -261,7 +264,7 @@ public class LoginUser extends javax.swing.JFrame {
                 if(rs.next()){
                    
 
-                    Welcome welcom = new Welcome(loginEmail.getText());
+                	InterfaceUser welcom = new InterfaceUser(loginEmail.getText());
                     welcom.setVisible(true);
                     welcom.pack();
                     welcom.setLocationRelativeTo(null);
