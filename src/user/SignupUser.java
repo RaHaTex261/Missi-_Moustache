@@ -20,9 +20,7 @@ import Crud.Hashing;
 
 public class SignupUser extends javax.swing.JFrame {
 
-    /**
-	 * 
-	 */
+    
 	private static final long serialVersionUID = 1L;
 	private javax.swing.JPanel Left;
     private javax.swing.JPanel Right;
@@ -45,12 +43,10 @@ public class SignupUser extends javax.swing.JFrame {
     Hashing h = new Hashing();
     
     
-    
     public SignupUser() {
         initComponents();
         con = DbConnection.connectionDB();
     }
-    
     
     private boolean isValidStrongPassword(String password) {
         String regex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$";
@@ -275,7 +271,6 @@ public class SignupUser extends javax.swing.JFrame {
         String pass = signUpPassword.getText();
         
         
-        
         int a=0;
         if(usernom.matches("[a-zA-Z]+")){
             a=1;
@@ -303,11 +298,9 @@ public class SignupUser extends javax.swing.JFrame {
         }
         
        
-        if (!(usernom == null || usernom.trim().isEmpty() ||
-             mail == null || mail.trim().isEmpty() ||
-             pass.trim().isEmpty() || a == 0 || b == 0 || c == 0)) {
+        if (!(usernom == null || usernom.trim().isEmpty() || mail == null || mail.trim().isEmpty() || pass.trim().isEmpty() || a == 0 || b == 0 || c == 0)) {
             try{
-                String sql = "INSERT INTO Accounts VALUES (?,?,?,?,?);";
+                String sql = "INSERT INTO Accounts VALUES (,?,?,?,?);";
                 pst = con.prepareStatement(sql);
 
 
@@ -325,7 +318,7 @@ public class SignupUser extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Nouvel utilisateur enregistré avec succès");
             }
             catch(Exception e){
-                JOptionPane.showMessageDialog(null, " L'inscription a échoué, essayez un autre nom d'utilisateur !!");
+                JOptionPane.showMessageDialog(null, " L'inscription a échoué!!");
                 try {
                     con.close();
                 } catch (SQLException ex) {
