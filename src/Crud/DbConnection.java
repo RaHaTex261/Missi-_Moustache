@@ -20,8 +20,5 @@ public class DbConnection {
         }
     }
 
-	public static user.Connection getConnection() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 }
