@@ -1,6 +1,7 @@
 package user;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,10 +11,16 @@ import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+
 
 public class InterfaceUser extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -25,104 +32,103 @@ public class InterfaceUser extends JFrame {
 	private List<File> vocalMessages = new ArrayList<>();
 	private List<JButton> playButtons = new ArrayList<>();
 	private Map<File, Clip> activeClips = new HashMap<>();
+    private JFrame frame;
 
 	public InterfaceUser(String string) {
-        // Paramètres de la fenêtre principale
-        setTitle("Chat Application");
-        setMinimumSize(new Dimension(800, 500));
-        setPreferredSize(new Dimension(800, 500));
-        setSize(800, 500);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        getContentPane().setLayout(new BorderLayout());
+		// Paramètres de la fenêtre principale
+		setTitle("Chat Application");
+		setMinimumSize(new Dimension(800, 500));
+		setPreferredSize(new Dimension(800, 500));
+		setSize(800, 500);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
+		getContentPane().setLayout(new BorderLayout());
 
-        // ================== Panel Gauche ==================
-        JPanel leftPanel = new JPanel(new BorderLayout());
-        leftPanel.setBackground(new Color(30, 144, 255));
-        leftPanel.setPreferredSize(new Dimension(200, getHeight()));
+		// ================== Panel Gauche ==================
+		JPanel leftPanel = new JPanel(new BorderLayout());
+		leftPanel.setBackground(new Color(30, 144, 255));
+		leftPanel.setPreferredSize(new Dimension(200, getHeight()));
 
-        JTextField searchField = new JTextField("Search...");
-        searchField.setPreferredSize(new Dimension(300, 30));
-        leftPanel.add(searchField, BorderLayout.NORTH);
+		JTextField searchField = new JTextField("Search...");
+		searchField.setPreferredSize(new Dimension(300, 30));
+		leftPanel.add(searchField, BorderLayout.NORTH);
 
-        DefaultListModel<String> contactsModel = new DefaultListModel<>();
-        contactsModel.addElement("Teddy");
-        contactsModel.addElement("David");
-        JList<String> contactList = new JList<>(contactsModel);
-        contactList.setBackground(new Color(200, 220, 255));
-        JScrollPane scrollPane = new JScrollPane(contactList);
-        leftPanel.add(scrollPane, BorderLayout.CENTER);
+		DefaultListModel<String> contactsModel = new DefaultListModel<>();
+		contactsModel.addElement("Teddy");
+		contactsModel.addElement("David");
+		JList<String> contactList = new JList<>(contactsModel);
+		contactList.setBackground(new Color(200, 220, 255));
+		JScrollPane scrollPane = new JScrollPane(contactList);
+		leftPanel.add(scrollPane, BorderLayout.CENTER);
 
-        // ================== Panel utilisateur en bas ==================
-        JPanel bottomLeftPanel = new JPanel(new BorderLayout());
-        bottomLeftPanel.setPreferredSize(new Dimension(250, 50));
-        bottomLeftPanel.setBackground(new Color(50, 130, 200));
+		// ================== Panel utilisateur en bas ==================
+		JPanel bottomLeftPanel = new JPanel(new BorderLayout());
+		bottomLeftPanel.setPreferredSize(new Dimension(250, 50));
+		bottomLeftPanel.setBackground(new Color(50, 130, 200));
 
-        JLabel userLabel = new JLabel("👤 Nom Utilisateur");
-        userLabel.setForeground(Color.WHITE);
-        userLabel.setHorizontalAlignment(SwingConstants.LEFT);
-        userLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
+		JLabel userLabel = new JLabel("👤 Nom Utilisateur");
+		userLabel.setForeground(Color.WHITE);
+		userLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		userLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 
-        // Création du JPopupMenu pour le menu déroulant
-        JPopupMenu popupMenu = new JPopupMenu();
+		// Création du JPopupMenu pour le menu déroulant
+		JPopupMenu popupMenu = new JPopupMenu();
 
-        // Création des éléments du menu
-        JMenuItem modifyItem = new JMenuItem("Modifier");
-        JMenuItem logoutItem = new JMenuItem("Déconnexion");
+		// Création des éléments du menu
+		JMenuItem modifyItem = new JMenuItem("Modifier");
+		JMenuItem logoutItem = new JMenuItem("Déconnexion");
 
-        // Ajout des éléments au menu
-        popupMenu.add(modifyItem);
-        popupMenu.addSeparator();  // Séparateur pour les options
-        popupMenu.add(logoutItem);
+		// Ajout des éléments au menu
+		popupMenu.add(modifyItem);
+		popupMenu.addSeparator(); // Séparateur pour les options
+		popupMenu.add(logoutItem);
 
-        // Création du bouton du menu ⚙️
-        JButton menuButton = new JButton("⚙️");
-        menuButton.setPreferredSize(new Dimension(50, 30));
+		// Création du bouton du menu ⚙️
+		JButton menuButton = new JButton("⚙️");
+		menuButton.setPreferredSize(new Dimension(50, 30));
 
-        // Ajouter un écouteur d'événements au bouton
-        menuButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                popupMenu.show(menuButton, 0, menuButton.getHeight()); // Affiche le menu sous le bouton
-            }
-        });
+		// Ajouter un écouteur d'événements au bouton
+		menuButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				popupMenu.show(menuButton, 0, menuButton.getHeight()); // Affiche le menu sous le bouton
+			}
+		});
 
-        modifyItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-          
-                // Ouvrir l'interface de modification
-                new ModifierUser(); // Crée une nouvelle instance de la fenêtre de modification
-            }
-        });
+		modifyItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
 
+				// Ouvrir l'interface de modification
+				new ModifierUser(); // Crée une nouvelle instance de la fenêtre de modification
+			}
+		});
 
-        logoutItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Afficher un message de déconnexion
-                JOptionPane.showMessageDialog(InterfaceUser.this, "Déconnexion...");
+		logoutItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// Afficher un message de déconnexion
+				JOptionPane.showMessageDialog(InterfaceUser.this, "Déconnexion...");
 
-                // Masquer et fermer la fenêtre actuelle (fenêtre principale de l'application de chat)
-                InterfaceUser.this.setVisible(false);
-                InterfaceUser.this.dispose(); // Ferme la fenêtre actuelle
+				// Masquer et fermer la fenêtre actuelle (fenêtre principale de l'application de
+				// chat)
+				InterfaceUser.this.setVisible(false);
+				InterfaceUser.this.dispose(); // Ferme la fenêtre actuelle
 
-                // Ouvrir la fenêtre de connexion (LoginApp)
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        new LoginApp(); // Crée une nouvelle instance de la fenêtre de connexion
-                    }
-                });
-            }
-        });
+				// Ouvrir la fenêtre de connexion (LoginApp)
+				SwingUtilities.invokeLater(new Runnable() {
+					@Override
+					public void run() {
+						new LoginApp(); // Crée une nouvelle instance de la fenêtre de connexion
+					}
+				});
+			}
+		});
 
-
-
-        // Ajout du bouton au panel utilisateur en bas
-        bottomLeftPanel.add(userLabel, BorderLayout.WEST);
-        bottomLeftPanel.add(menuButton, BorderLayout.EAST);
-        leftPanel.add(bottomLeftPanel, BorderLayout.SOUTH);
+		// Ajout du bouton au panel utilisateur en bas
+		bottomLeftPanel.add(userLabel, BorderLayout.WEST);
+		bottomLeftPanel.add(menuButton, BorderLayout.EAST);
+		leftPanel.add(bottomLeftPanel, BorderLayout.SOUTH);
 
 		// ================== Panel Chat ==================
 		JPanel chatPanel = new JPanel(new BorderLayout());
@@ -173,6 +179,29 @@ public class InterfaceUser extends JFrame {
 		leftButtonsPanel.add(imageButton);
 		leftButtonsPanel.add(vocalButton);
 
+		// Zone pour afficher l'image
+		JLabel imageLabel = new JLabel();
+		imageLabel.setHorizontalAlignment(JLabel.CENTER);
+
+		// Action du bouton image
+		imageButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setFileFilter(new FileNameExtensionFilter("Images", "jpg", "png", "jpeg", "gif"));
+
+				int result = fileChooser.showOpenDialog(frame);
+				if (result == JFileChooser.APPROVE_OPTION) {
+					File selectedFile = fileChooser.getSelectedFile();
+					ImageIcon imageIcon = new ImageIcon(selectedFile.getAbsolutePath());
+
+					// Redimensionner l'image
+					Image image = imageIcon.getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+					imageLabel.setIcon(new ImageIcon(image));
+				}
+			}
+		});
+
 		messageField = new JTextField();
 		JButton sendButton = new JButton("Envoyer");
 
@@ -196,19 +225,29 @@ public class InterfaceUser extends JFrame {
 
 		setVisible(true);
 	}
+	
+
+	// Fonction d'envoi du message
+	private void sendMessage() {
+		String message = messageField.getText();
+		if (!message.isEmpty()) {
+			chatArea.append("Vous : " + message + "\n");
+			messageField.setText("");
+		}
+	}
 
 	// Méthode pour créer un nouveau composant contenant le bouton de lecture
 	private Component createAudioComponent(File audioFile) {
-		JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		JButton playButton = new JButton("▶️ Écouter");
-		playButton.addActionListener(e -> playAudio(audioFile));
+	    JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+	    JButton playButton = new JButton("▶️ Écouter");
+	    playButton.addActionListener(e -> playAudio(audioFile));
 
-		JLabel fileNameLabel = new JLabel(audioFile.getName());
-		fileNameLabel.setFont(new Font("Arial", Font.PLAIN, 10));
+	    JLabel fileNameLabel = new JLabel(audioFile.getName());
+	    fileNameLabel.setFont(new Font("Arial", Font.PLAIN, 10));
 
-		panel.add(playButton);
-		panel.add(fileNameLabel);
-		return panel;
+	    panel.add(playButton);
+	    panel.add(fileNameLabel);
+	    return panel;
 	}
 
 	// Méthode pour ajouter un message vocal à l'affichage
@@ -224,14 +263,6 @@ public class InterfaceUser extends JFrame {
 		chatArea.repaint();
 	}
 
-	// Fonction d'envoi du message
-	private void sendMessage() {
-		String message = messageField.getText();
-		if (!message.isEmpty()) {
-			chatArea.append("Vous : " + message + "\n");
-			messageField.setText("");
-		}
-	}
 
 	// Fonction pour démarrer l'enregistrement vocal
 	private void toggleRecording(JButton vocalButton) {
@@ -246,105 +277,145 @@ public class InterfaceUser extends JFrame {
 
 	// Fonction pour démarrer l'enregistrement
 	private void startRecording() {
-		isRecording = true;
-		new Thread(() -> {
-			try {
-				audioFile = new File("vocal_message_" + System.currentTimeMillis() + ".wav");
-				AudioFormat format = new AudioFormat(16000, 16, 2, true, true);
-				DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
-				if (!AudioSystem.isLineSupported(info)) {
-					chatArea.append("⚠️ Enregistrement non supporté !\n");
-					isRecording = false;
-					return;
-				}
-				targetLine = (TargetDataLine) AudioSystem.getLine(info);
-				targetLine.open(format);
-				targetLine.start();
-				AudioInputStream ais = new AudioInputStream(targetLine);
-				AudioSystem.write(ais, AudioFileFormat.Type.WAVE, audioFile);
-				chatArea.append("🎙️ Enregistrement commencé...\n");
-			} catch (Exception e) {
-				chatArea.append("❌ Erreur d'enregistrement !\n");
-				isRecording = false;
-			}
-		}).start();
+	    isRecording = true;
+	    new Thread(() -> {
+	        try {
+	            // Définir le répertoire de stockage
+	            File directory = new File("vocal");
+	            if (!directory.exists()) {
+	                directory.mkdir(); // Crée le dossier s'il n'existe pas
+	            }
+
+	            // Créer le fichier dans le dossier "vocal"
+	            audioFile = new File(directory, "vocal_message_" + System.currentTimeMillis() + ".wav");
+
+	            AudioFormat format = new AudioFormat(16000, 16, 2, true, true);
+	            DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
+	            if (!AudioSystem.isLineSupported(info)) {
+	                chatArea.append("⚠️ Enregistrement non supporté !\n");
+	                isRecording = false;
+	                return;
+	            }
+	            targetLine = (TargetDataLine) AudioSystem.getLine(info);
+	            targetLine.open(format);
+	            targetLine.start();
+	            AudioInputStream ais = new AudioInputStream(targetLine);
+	            AudioSystem.write(ais, AudioFileFormat.Type.WAVE, audioFile);
+	            chatArea.append("🎙️ Enregistrement commencé...\n");
+	        } catch (Exception e) {
+	            chatArea.append("❌ Erreur d'enregistrement !\n");
+	            isRecording = false;
+	        }
+	    }).start();
 	}
+
 
 	// Fonction pour jouer l'audio enregistré
 	private void playAudio(File audioFile) {
-		if (audioFile.exists()) {
-			try {
-				AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
-				Clip clip = AudioSystem.getClip();
-				clip.open(audioStream);
+	    if (audioFile.exists()) {
+	        try {
+	            AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
+	            Clip clip = AudioSystem.getClip();
+	            clip.open(audioStream);
 
-				// Arrêtez toute lecture en cours du même fichier
-				if (activeClips.containsKey(audioFile)) {
-					Clip oldClip = activeClips.get(audioFile);
-					oldClip.stop();
-				}
+	            // Arrêtez toute lecture en cours du même fichier
+	            if (activeClips.containsKey(audioFile)) {
+	                Clip oldClip = activeClips.get(audioFile);
+	                oldClip.stop();
+	            }
 
-				clip.start();
-				activeClips.put(audioFile, clip);
+	            clip.start();
+	            activeClips.put(audioFile, clip);
 
-				// Nettoyez le clip quand il finit de jouer
-				Thread cleanupThread = new Thread(() -> {
-					try {
-						long sleepTime = (long) (audioStream.getFrameLength() / audioStream.getFormat().getFrameRate()
-								* 1000 + 500);
-						Thread.sleep(sleepTime);
-						activeClips.remove(audioFile);
-					} catch (Exception e) {
-						chatArea.append("❌ Erreur lors du nettoyage du clip audio\n");
-					}
-				});
-				cleanupThread.setDaemon(true);
-				cleanupThread.start();
+	            // Nettoyez le clip quand il finit de jouer
+	            Thread cleanupThread = new Thread(() -> {
+	                try {
+	                    long sleepTime = (long) (audioStream.getFrameLength() / audioStream.getFormat().getFrameRate()
+	                            * 1000 + 500);
+	                    Thread.sleep(sleepTime);
+	                    activeClips.remove(audioFile);
+	                } catch (Exception e) {
+	                    chatArea.append("❌ Erreur lors du nettoyage du clip audio\n");
+	                }
+	            });
+	            cleanupThread.setDaemon(true);
+	            cleanupThread.start();
 
-				chatArea.append("🎧 Lecture du message vocal...\n");
-			} catch (Exception e) {
-				chatArea.append("❌ Impossible de lire le message vocal !\n");
-			}
-		} else {
-			chatArea.append("❌ Aucun message vocal à écouter !\n");
-		}
+	            chatArea.append("🎧 Lecture du message vocal...\n");
+	        } catch (Exception e) {
+	            chatArea.append("❌ Impossible de lire le message vocal !\n");
+	        }
+	    } else {
+	        chatArea.append("❌ Aucun message vocal à écouter !\n");
+	    }
 	}
 
 	private void stopRecording() {
-		isRecording = false;
+	    isRecording = false;
 
-		if (targetLine != null) {
-			targetLine.stop();
-			targetLine.close();
-		}
+	    if (targetLine != null) {
+	        targetLine.stop();
+	        targetLine.close();
+	    }
 
-		try {
-			chatArea.append("✅ Message vocal enregistré : " + audioFile.getName() + " ");
+	    try {
+	        chatArea.append("✅ Message vocal enregistré : " + audioFile.getName() + " ");
 
-			// Lecture du fichier audio
-			@SuppressWarnings("unused")
-			byte[] audioContent = Files.readAllBytes(audioFile.toPath());
+	        // Lecture du fichier audio
+	        @SuppressWarnings("unused")
+	        byte[] audioContent = Files.readAllBytes(audioFile.toPath());
 
-			// Création du bouton de lecture
-			JButton playButton = new JButton("▶️");
-			playButton.addActionListener(e -> playAudio(audioFile));
+	        // Appel de la méthode pour sauvegarder le nom du fichier en BDD
+	        saveAudioFileNameToDB(1, 2, audioFile);  // Remplace 1 et 2 par les vrais ID de l'expéditeur et du destinataire
 
-			// Ajout du bouton à l'interface
-			chatArea.add(playButton);
-			chatArea.append("\n");
+	        // Création du bouton de lecture
+	        JButton playButton = new JButton("▶️");
+	        playButton.addActionListener(e -> playAudio(audioFile));
 
-			// Ajout du fichier audio à la liste des messages vocaux
-			vocalMessages.add(audioFile);
+	        // Ajout du bouton à l'interface
+	        chatArea.add(playButton);
+	        chatArea.append("\n");
 
-			// Mise à jour de l'affichage
-			chatArea.revalidate();
-			chatArea.repaint();
+	        // Ajout du fichier audio à la liste des messages vocaux
+	        vocalMessages.add(audioFile);
 
-		} catch (IOException e) {
-			chatArea.append("❌ Erreur lors de l'enregistrement du message vocal.\n");
-			e.printStackTrace();
-		}
+	        // Mise à jour de l'affichage
+	        chatArea.revalidate();
+	        chatArea.repaint();
+
+	    } catch (IOException e) {
+	        chatArea.append("❌ Erreur lors de l'enregistrement du message vocal.\n");
+	        e.printStackTrace();
+	    }
 	}
+	
+	
+	private void saveAudioFileNameToDB(int expediteurId, Integer destinataireId, File audioFile) {
+	    String fileName = audioFile.getName();  // Récupère le nom du fichier
+
+	    // Connexion à la base de données SQLite
+	    try (Connection conn = DriverManager.getConnection("jdbc:sqlite:loginSqlite.db")) { // Remplace "database.db" par ton fichier BDD
+	        String sql = "INSERT INTO messages_audio (expediteur_id, destinataire_id, contenu_audio, hash_integrite, statut) " +
+	                     "VALUES (?, ?, ?, ?, ?)";
+
+	        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	            pstmt.setInt(1, expediteurId);  // ID de l'expéditeur
+	            pstmt.setObject(2, destinataireId); // ID du destinataire (peut être null)
+	            pstmt.setString(3, fileName);  // Nom du fichier audio
+	            pstmt.setString(4, Integer.toString(fileName.hashCode()));  // Hash de l'intégrité du fichier
+	            pstmt.setString(5, "envoyé");  // Statut par défaut
+
+	            pstmt.executeUpdate();  // Exécute la requête d'insertion
+	            System.out.println("Nom du fichier audio sauvegardé dans la base de données !");
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	}
+
+
+	
+	
 
 	@SuppressWarnings("unused")
 	private int obtenirUtilisateurId(Object utilisateur) {
