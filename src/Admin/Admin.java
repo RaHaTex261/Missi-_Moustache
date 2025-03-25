@@ -7,7 +7,7 @@ public class Admin {
 		admin.setVisible(true);
 		admin.pack();
 		admin.setLocationRelativeTo(null);
-
+//David
 	}
 
 }
