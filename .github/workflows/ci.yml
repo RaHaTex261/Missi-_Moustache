@@ -33,7 +33,10 @@ jobs:
     - name: Compile Java files
       run: |
         mkdir -p bin  # Crée le répertoire bin pour les fichiers compilés
-        javac -d bin -cp ".:sqlite-jdbc-3.42.0.0.jar:junit-platform-console-standalone.jar" src/authentification/*.java  # Compile les fichiers .java avec le driver SQLite et JUnit 5
+        javac -d bin -cp ".:sqlite-jdbc-3.42.0.0.jar:junit-platform-console-standalone.jar" \
+          src/user/*.java \
+          src/Crud/*.java \
+          src/Admin/*.java  # Compile tous les fichiers Java des packages user, Crud, et Admin
 
     - name: Run tests
       run: |
@@ -56,7 +59,10 @@ jobs:
     - name: Build and package the application
       run: |
         mkdir -p bin
-        javac -d bin -cp ".:sqlite-jdbc-3.42.0.0.jar:junit-platform-console-standalone.jar" src/authentification/*.java  # Compile les fichiers source Java
+        javac -d bin -cp ".:sqlite-jdbc-3.42.0.0.jar:junit-platform-console-standalone.jar" \
+          src/user/*.java \
+          src/Crud/*.java \
+          src/Admin/*.java  # Compile les fichiers source Java
 
     - name: Create JAR package
       run: |
