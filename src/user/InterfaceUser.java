@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import Crud.DbConnection;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.awt.*;
 import javax.sound.sampled.*;
 import java.io.File;
@@ -234,92 +235,67 @@ public class InterfaceUser extends JFrame {
 
 	private void stopRecording() {
 	    isRecording = false;
+	    
 	    if (targetLine != null) {
 	        targetLine.stop();
 	        targetLine.close();
-	        
+	    }
+
+	    try {
+	        chatArea.append("✅ Message vocal enregistré : " + audioFile.getName() + " ");
+
 	        // Lecture du fichier audio
-	        FileInputStream fis = null;
-	        try {
-	            chatArea.append("✅ Message vocal enregistré : " + audioFile.getName() + " ");
-	            
-	            // Connexion à la base de données
-	            Connection conn = DbConnection.getConnection();
-	            
-	            // Lecture du fichier audio
-	            byte[] audioContent = Files.readAllBytes(audioFile.toPath());
-	            
-	            // Calcul du hash SHA-256 pour l'intégrité
-	            String hashIntegrite = calculerHash1(audioFile);
-	            
-	            // Préparation et exécution de la requête
-	            String sql = "INSERT INTO messages_audio (expediteur_id, destinataire_id, contenu_audio, hash_integrite, statut) "
-	                       + "VALUES (?, ?, ?, ?, ?)";
-	            
-	            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-	                Object utilisateur;
-					int expediteurId = obtenirUtilisateurId(utilisateur);
-	                Object destinataire;
-					int destinataireId = destinataire != null ? obtenirUtilisateurId(destinataire) : 0;
-	                
-	                pstmt.setInt(1, expediteurId);
-	                pstmt.setInt(2, destinataireId);
-	                pstmt.setBytes(3, audioContent);
-	                pstmt.setString(4, hashIntegrite);
-	                pstmt.setString(5, "envoyé");
-	                
-	                pstmt.executeUpdate();
-	                System.out.println("Message vocal inséré dans la base de données.");
-	                
-	                // Création du bouton de lecture
-	                JButton playButton = new JButton("▶️");
-	                playButton.addActionListener(e -> playAudio(audioFile));
-	                chatArea.add(playButton);
-	                chatArea.append("\n");
-	                vocalMessages.add(audioFile);
-	            } finally {
-	                conn.close();
-	            }
-	            
-	        } catch (SQLException | IOException | NoSuchAlgorithmException e) {
-	            chatArea.append("❌ Erreur lors de l'enregistrement en base de données\n");
-	            e.printStackTrace();
-	        } finally {
-	            if (fis != null) {
-	                try {
-	                    fis.close();
-	                } catch (IOException e) {
-	                    e.printStackTrace();
-	                }
-	            }
-	        }
+	        byte[] audioContent = Files.readAllBytes(audioFile.toPath());
+
+	        // Calcul du hash SHA-256 pour l'intégrité
+	        String hashIntegrite = calculerHash(audioFile);
+
+	        // Création du bouton de lecture
+	        JButton playButton = new JButton("▶️");
+	        playButton.addActionListener(e -> playAudio(audioFile));
+
+	        // Ajout du bouton à l'interface
+	        chatArea.add(playButton);
+	        chatArea.append("\n");
+
+	        // Ajout du fichier audio à la liste des messages vocaux
+	        vocalMessages.add(audioFile);
+
+	        // Mise à jour de l'affichage
+	        chatArea.revalidate();
+	        chatArea.repaint();
+	        
+	    } catch (IOException e) {
+	        chatArea.append("❌ Erreur lors de l'enregistrement du message vocal.\n");
+	        e.printStackTrace();
 	    }
 	}
-	 
-	//hashage vocal
+
+
+	// hashage vocal
 	private String calculerHash1(File fichier) throws NoSuchAlgorithmException, IOException {
-	    MessageDigest md = MessageDigest.getInstance("SHA-256");
-	    FileInputStream fis = new FileInputStream(fichier);
-	    
-	    byte[] buffer = new byte[8192];
-	    int bytesRead;
-	    
-	    while ((bytesRead = fis.read(buffer)) != -1) {
-	        md.update(buffer, 0, bytesRead);
-	    }
-	    
-	    byte[] hashBytes = md.digest();
-	    StringBuilder hexString = new StringBuilder();
-	    
-	    for (byte b : hashBytes) {
-	        String hex = Integer.toHexString(0xff & b);
-	        if (hex.length() == 1) {
-	            hexString.append('0');
-	        }
-	        hexString.append(hex);
-	    }
-	    
-	    return hexString.toString();
+		MessageDigest md = MessageDigest.getInstance("SHA-256");
+		FileInputStream fis = new FileInputStream(fichier);
+
+		byte[] buffer = new byte[8192];
+		int bytesRead;
+
+		while ((bytesRead = fis.read(buffer)) != -1) {
+			md.update(buffer, 0, bytesRead);
+		}
+
+		byte[] hashBytes = md.digest();
+		StringBuilder hexString = new StringBuilder();
+
+		for (byte b : hashBytes) {
+			String hex = Integer.toHexString(0xff & b);
+			if (hex.length() == 1) {
+				hexString.append('0');
+			}
+			hexString.append(hex);
+		}
+
+		return hexString.toString();
 	}
 
 	private int obtenirUtilisateurId(Object utilisateur) {
