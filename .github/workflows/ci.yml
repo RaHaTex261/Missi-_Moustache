@@ -24,10 +24,14 @@ jobs:
       - name: Install JUnit 5
         run: |
           wget https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.8.2/junit-platform-console-standalone-1.8.2.jar -O junit-platform-console-standalone.jar
+      - name: Debug: List Java files
+        run: find src -name "*.java"
+      - name: Check dependencies
+        run: ls -l sqlite-jdbc-3.42.0.0.jar junit-platform-console-standalone.jar
       - name: Compile Java files
         run: |
           mkdir -p bin
-          javac -d bin -cp ".:sqlite-jdbc-3.42.0.0.jar:junit-platform-console-standalone.jar" $(find src -name "*.java")
+          javac -d bin -cp ".:sqlite-jdbc-3.42.0.0.jar:junit-platform-console-standalone.jar" $(find src -name "*.java") || { echo 'Compilation failed'; exit 1; }
       - name: Run tests
         run: |
           java -cp ".:bin:sqlite-jdbc-3.42.0.0.jar:junit-platform-console-standalone.jar" org.junit.platform.console.ConsoleLauncher --scan-classpath
