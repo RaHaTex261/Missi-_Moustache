@@ -12,5 +12,6 @@
 	<classpathentry kind="lib" path="H:/Université Maurice Cours/Cours/Qualité Code/Projet/Miisé_Moustache/Missi-_Moustache/tyrus-server-1.12.jar"/>
 	<classpathentry kind="lib" path="H:/Université Maurice Cours/Cours/Qualité Code/Projet/Miisé_Moustache/Missi-_Moustache/tyrus-standalone-client-1.18.jar"/>
 	<classpathentry kind="lib" path="H:/Université Maurice Cours/Cours/Qualité Code/Projet/Miisé_Moustache/Missi-_Moustache/tyrus-container-grizzly-server-1.8.1.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

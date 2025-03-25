@@ -3,7 +3,6 @@ package user;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -15,9 +14,20 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+/**
+ * Classe permettant de créer une fenêtre pour la modification du profil utilisateur.
+ * Cette fenêtre inclut des champs pour modifier le nom, l'email et les mots de passe,
+ * ainsi qu'un bouton pour enregistrer les modifications.
+ */
 public class ModifierUser extends JFrame {
+
+    // ID de version pour garantir la compatibilité de la classe lors de la sérialisation.
     private static final long serialVersionUID = 4947909569890578869L;
 
+    /**
+     * Constructeur de la classe ModifierUser. Il initialise la fenêtre de modification,
+     * ajoute les composants nécessaires, et configure l'action du bouton de sauvegarde.
+     */
     public ModifierUser() {
         // Paramètres de la fenêtre de modification
         setTitle("Modifier le Profil");
@@ -62,7 +72,7 @@ public class ModifierUser extends JFrame {
         JPasswordField confirmPasswordField = new JPasswordField();
         stylePasswordField(confirmPasswordField);
 
-     // Bouton de sauvegarde avec un peu de style amélioré
+        // Bouton de sauvegarde avec un peu de style amélioré
         JButton saveButton = new JButton("Enregistrer");
         saveButton.setFont(new Font("Arial", Font.BOLD, 14));
         saveButton.setBackground(new Color(0, 123, 255)); // Couleur bleue par défaut
@@ -79,12 +89,12 @@ public class ModifierUser extends JFrame {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 saveButton.setBackground(new Color(0, 102, 204)); // Couleur légèrement plus foncée au survol
             }
+
             @Override
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 saveButton.setBackground(new Color(0, 123, 255)); // Retour à la couleur initiale
             }
         });
-
 
         // Ajouter des éléments au panel
         panel.add(nameLabel);
@@ -129,23 +139,36 @@ public class ModifierUser extends JFrame {
         // Afficher la fenêtre de modification
         setVisible(true);
     }
-    
-    
 
-    // Méthode pour styliser les champs texte
+    /**
+     * Méthode pour styliser les champs de texte. Cette méthode définit les couleurs et le style de bordure
+     * pour les champs de texte de l'utilisateur.
+     * 
+     * @param textField Le champ de texte à styliser
+     */
     private void styleTextField(JTextField textField) {
         textField.setBackground(Color.WHITE);
         textField.setFont(new Font("Arial", Font.PLAIN, 14));
         textField.setBorder(javax.swing.BorderFactory.createLineBorder(new Color(200, 200, 200), 1)); // Bordure douce
     }
 
-    // Méthode pour styliser les champs mot de passe
+    /**
+     * Méthode pour styliser les champs de mot de passe. Cette méthode définit les couleurs et le style de bordure
+     * pour les champs de mot de passe de l'utilisateur.
+     * 
+     * @param passwordField Le champ de mot de passe à styliser
+     */
     private void stylePasswordField(JPasswordField passwordField) {
         passwordField.setBackground(Color.WHITE);
         passwordField.setFont(new Font("Arial", Font.PLAIN, 14));
         passwordField.setBorder(javax.swing.BorderFactory.createLineBorder(new Color(200, 200, 200), 1)); // Bordure douce
     }
 
+    /**
+     * Méthode principale qui lance la fenêtre de modification du profil utilisateur.
+     * 
+     * @param args Les arguments de la ligne de commande
+     */
     public static void main(String[] args) {
         new ModifierUser();
     }

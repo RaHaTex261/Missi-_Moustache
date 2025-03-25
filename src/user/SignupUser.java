@@ -28,21 +28,81 @@ import Crud.Hashing;
 public class SignupUser extends javax.swing.JFrame {
 
 	// Déclaration des composants de l'interface utilisateur
+	/**
+	 * Identifiant de version pour la sérialisation de l'objet.
+	 */
 	private static final long serialVersionUID = 1L;
+
+	/**
+	 * Panel gauche de l'interface graphique. Peut être utilisé pour organiser les composants dans un layout.
+	 */
 	private javax.swing.JPanel Left;
+
+	/**
+	 * Panel droit de l'interface graphique. Peut être utilisé pour organiser les composants dans un layout.
+	 */
 	private javax.swing.JPanel Right;
+
+	/**
+	 * Label associé à un champ de texte ou à une section de l'interface. Peut afficher un titre ou une description.
+	 */
 	private javax.swing.JLabel jLabel1;
+
+	/**
+	 * Un autre label associé à un champ de texte ou à une section de l'interface.
+	 */
 	private javax.swing.JLabel jLabel2;
+
+	/**
+	 * Un label supplémentaire pour l'affichage d'un texte dans l'interface graphique.
+	 */
 	private javax.swing.JLabel jLabel3;
+
+	/**
+	 * Label utilisé pour afficher une autre section ou une description dans l'interface graphique.
+	 */
 	private javax.swing.JLabel jLabel6;
+
+	/**
+	 * Label supplémentaire pour l'affichage d'un texte ou d'une information dans l'interface.
+	 */
 	private javax.swing.JLabel jLabel7;
+
+	/**
+	 * Panel principal dans lequel tous les autres composants de l'interface graphique seront ajoutés.
+	 */
 	private javax.swing.JPanel jPanel1;
+
+	/**
+	 * Bouton pour quitter l'écran d'inscription. Il ferme l'application ou l'écran d'inscription lorsqu'il est cliqué.
+	 */
 	private javax.swing.JButton quitSignUp;
+
+	/**
+	 * Champ de texte où l'utilisateur peut entrer son email lors de l'inscription.
+	 */
 	private javax.swing.JTextField signUpEmail;
+
+	/**
+	 * Bouton qui permet à l'utilisateur de rediriger vers l'écran de connexion.
+	 */
 	private javax.swing.JButton signUpLogin;
+
+	/**
+	 * Champ de texte caché pour que l'utilisateur entre son mot de passe lors de l'inscription.
+	 */
 	private javax.swing.JPasswordField signUpPassword;
+
+	/**
+	 * Bouton pour soumettre le formulaire d'inscription et créer un nouveau compte utilisateur.
+	 */
 	private javax.swing.JButton signUpSignUp;
+
+	/**
+	 * Champ de texte où l'utilisateur peut entrer son nom d'utilisateur lors de l'inscription.
+	 */
 	private javax.swing.JTextField signUpUserName;
+
 
 	// Déclaration de la connexion à la base de données et autres variables
 	Connection con = null;

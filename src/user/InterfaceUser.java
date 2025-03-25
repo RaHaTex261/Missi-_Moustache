@@ -20,19 +20,75 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import java.util.Base64;
 
 
+/**
+ * Classe représentant l'interface utilisateur pour la gestion d'un chat audio et textuel.
+ * Elle hérite de JFrame pour créer une fenêtre d'application avec des composants graphiques.
+ * Cette classe permet de saisir des messages texte, d'enregistrer des messages vocaux et de les lire.
+ */
 public class InterfaceUser extends JFrame {
-	private static final long serialVersionUID = 1L;
-	private JTextArea chatArea;
-	private JTextField messageField;
-	private boolean isRecording = false;
-	private TargetDataLine targetLine;
-	private File audioFile;
-	private List<File> vocalMessages = new ArrayList<>();
-	private List<JButton> playButtons = new ArrayList<>();
-	private Map<File, Clip> activeClips = new HashMap<>();
+    
+    /**
+     * Serial version UID pour garantir la compatibilité lors de la sérialisation de l'objet.
+     */
+    private static final long serialVersionUID = 1L;
+    
+    /**
+     * Zone de texte pour afficher le chat, où les messages texte seront montrés.
+     */
+    private JTextArea chatArea;
+    
+    /**
+     * Champ de texte où l'utilisateur saisit ses messages.
+     */
+    private JTextField messageField;
+    
+    /**
+     * Indicateur pour savoir si l'enregistrement audio est en cours.
+     * Si 'true', un enregistrement audio est en cours.
+     */
+    private boolean isRecording = false;
+    
+    /**
+     * Ligne de données cible utilisée pour l'enregistrement audio à partir du micro.
+     */
+    private TargetDataLine targetLine;
+    
+    /**
+     * Fichier audio actuellement enregistré.
+     * Il représente le dernier message vocal enregistré par l'utilisateur.
+     */
+    private File audioFile;
+    
+    /**
+     * Liste des fichiers audio (messages vocaux) envoyés par l'utilisateur.
+     */
+    private List<File> vocalMessages = new ArrayList<>();
+    
+    /**
+     * Liste des boutons de lecture associés aux messages vocaux.
+     * Chaque bouton permet de lire un message vocal spécifique.
+     */
+    private List<JButton> playButtons = new ArrayList<>();
+    
+    /**
+     * Dictionnaire associant chaque fichier audio à un clip audio en cours de lecture.
+     * Utilisé pour gérer l'état de lecture des fichiers audio.
+     */
+    private Map<File, Clip> activeClips = new HashMap<>();
+    
+    /**
+     * Fenêtre principale de l'interface utilisateur.
+     */
     private JFrame frame;
+    
+    // D'autres méthodes et logiques de l'interface seraient ajoutées ici
+
 
 	public InterfaceUser(String string) {
 		// Paramètres de la fenêtre principale
@@ -412,9 +468,29 @@ public class InterfaceUser extends JFrame {
 	        e.printStackTrace();
 	    }
 	}
-
-
 	
+	// Générer une clé secrète pour AES
+	public static SecretKey generateSecretKey() throws Exception {
+	    KeyGenerator keyGen = KeyGenerator.getInstance("AES");
+	    keyGen.init(128); // Taille de la clé en bits
+	    return keyGen.generateKey();
+	}
+
+	// Chiffrer le texte
+	public static String encryptText(String plainText, SecretKey secretKey) throws Exception {
+	    Cipher cipher = Cipher.getInstance("AES");
+	    cipher.init(Cipher.ENCRYPT_MODE, secretKey);
+	    byte[] encrypted = cipher.doFinal(plainText.getBytes());
+	    return Base64.getEncoder().encodeToString(encrypted);
+	}
+
+	// Déchiffrer le texte
+	public static String decryptText(String encryptedText, SecretKey secretKey) throws Exception {
+	    Cipher cipher = Cipher.getInstance("AES");
+	    cipher.init(Cipher.DECRYPT_MODE, secretKey);
+	    byte[] decrypted = cipher.doFinal(Base64.getDecoder().decode(encryptedText));
+	    return new String(decrypted);
+	}
 	
 
 	@SuppressWarnings("unused")

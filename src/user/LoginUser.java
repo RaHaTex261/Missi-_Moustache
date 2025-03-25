@@ -14,32 +14,90 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import Crud.DbConnection;
 import Crud.Hashing;
 
+
+/**
+ * Fenêtre de connexion utilisateur.
+ * 
+ * Cette classe représente l'interface utilisateur permettant à un utilisateur
+ * de se connecter à l'application en saisissant son email et son mot de passe.
+ * Elle gère les interactions avec les composants de l'interface, y compris les
+ * champs de saisie pour l'email et le mot de passe, ainsi que les boutons pour
+ * se connecter, s'inscrire, ou quitter l'application. Elle communique avec la
+ * base de données pour valider les informations de connexion.
+ * 
+ * @author Tex Beloha
+ * @version 1.0
+ */
 public class LoginUser extends javax.swing.JFrame {
 
+	// Déclaration des composants graphiques de l'interface utilisateur
+	// Déclaration des composants graphiques pour l'interface utilisateur
+
+	/** Panneau gauche de la fenêtre de connexion. */
 	private javax.swing.JPanel Left;
+
+	/** Panneau droit de la fenêtre de connexion. */
 	private javax.swing.JPanel Right;
+
+	/** Label pour afficher un texte descriptif ou un titre. */
 	private javax.swing.JLabel jLabel1;
+
+	/** Label pour afficher un autre texte descriptif ou un sous-titre. */
 	private javax.swing.JLabel jLabel2;
+
+	/** Label pour afficher un texte supplémentaire ou une information. */
 	private javax.swing.JLabel jLabel3;
+
+	/** Panneau principal qui contient les autres composants. */
 	private javax.swing.JPanel jPanel1;
+
+	/** Champ de texte où l'utilisateur saisit son email pour se connecter. */
 	private javax.swing.JTextField loginEmail;
+
+	/** Bouton permettant à l'utilisateur de se connecter après avoir saisi ses informations. */
 	private javax.swing.JButton loginLogin;
+
+	/** Champ de texte masqué où l'utilisateur saisit son mot de passe. */
 	private javax.swing.JPasswordField loginPassword;
+
+	/** Bouton permettant à l'utilisateur de s'inscrire s'il n'a pas encore de compte. */
 	private javax.swing.JButton loginSignUp;
+
+	/** Bouton permettant à l'utilisateur de quitter la fenêtre de connexion. */
 	private javax.swing.JButton quitLogin;
 
+	/** ID de version pour garantir la compatibilité de la classe lors de la sérialisation. */
 	private static final long serialVersionUID = 1L;
+
+
+	// Déclaration des objets pour la connexion à la base de données
 	Connection con = null;
 	PreparedStatement pst = null;
 	ResultSet rs = null;
+
+	// Instance de la classe Hashing pour le traitement des mots de passe
 	Hashing h = new Hashing();
 
+	/**
+	 * Constructeur de la classe LoginUser.
+	 * 
+	 * Initialise les composants graphiques de la fenêtre de connexion, établit la
+	 * connexion avec la base de données, et prépare l'interface pour l'affichage.
+	 */
 	public LoginUser() {
 		initComponents();
-		con = DbConnection.connectionDB();
+		con = DbConnection.connectionDB(); // Connexion à la base de données
 	}
 
+	/**
+	 * Méthode pour initialiser les composants graphiques de la fenêtre.
+	 * 
+	 * Cette méthode configure et place les différents composants visuels de
+	 * l'interface utilisateur (champs de texte, boutons, labels, etc.) et définit
+	 * les actions associées à ces composants.
+	 */
 	private void initComponents() {
+		// Initialisation et configuration des composants graphiques
 
 		jPanel1 = new javax.swing.JPanel();
 		Right = new javax.swing.JPanel();
@@ -123,48 +181,41 @@ public class LoginUser extends javax.swing.JFrame {
 		});
 
 		javax.swing.GroupLayout LeftLayout = new javax.swing.GroupLayout(Left);
-		LeftLayout.setHorizontalGroup(
-			LeftLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(LeftLayout.createSequentialGroup()
-					.addGroup(LeftLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(LeftLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(jLabel1))
-						.addGroup(LeftLayout.createSequentialGroup()
-							.addGap(33)
-							.addGroup(LeftLayout.createParallelGroup(Alignment.TRAILING, false)
-								.addGroup(Alignment.LEADING, LeftLayout.createSequentialGroup()
-									.addComponent(loginSignUp)
-									.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(quitLogin))
-								.addComponent(loginEmail, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
-								.addComponent(jLabel2, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE)
+		LeftLayout.setHorizontalGroup(LeftLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(LeftLayout.createSequentialGroup().addGroup(LeftLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(LeftLayout.createSequentialGroup().addContainerGap().addComponent(jLabel1))
+						.addGroup(LeftLayout.createSequentialGroup().addGap(33).addGroup(LeftLayout
+								.createParallelGroup(Alignment.TRAILING, false)
+								.addGroup(Alignment.LEADING,
+										LeftLayout.createSequentialGroup().addComponent(loginSignUp)
+												.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE,
+														Short.MAX_VALUE)
+												.addComponent(quitLogin))
+								.addComponent(loginEmail, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 323,
+										Short.MAX_VALUE)
+								.addComponent(jLabel2, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 114,
+										GroupLayout.PREFERRED_SIZE)
 								.addComponent(loginPassword, Alignment.LEADING)
-								.addComponent(jLabel3, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 227, GroupLayout.PREFERRED_SIZE)
-								.addComponent(loginLogin, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 163, GroupLayout.PREFERRED_SIZE))))
-					.addContainerGap())
-		);
-		LeftLayout.setVerticalGroup(
-			LeftLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(LeftLayout.createSequentialGroup()
-					.addGap(57)
-					.addComponent(jLabel1)
-					.addGap(18)
-					.addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(loginEmail, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(jLabel3, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(loginPassword, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addComponent(loginLogin, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(LeftLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(loginSignUp, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
-						.addComponent(quitLogin, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
-					.addGap(47))
-		);
+								.addComponent(jLabel3, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 227,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(loginLogin, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 163,
+										GroupLayout.PREFERRED_SIZE))))
+						.addContainerGap()));
+		LeftLayout.setVerticalGroup(LeftLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(LeftLayout.createSequentialGroup().addGap(57).addComponent(jLabel1).addGap(18)
+						.addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(loginEmail, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(jLabel3, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(loginPassword, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+						.addGap(18).addComponent(loginLogin, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(LeftLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(loginSignUp, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
+								.addComponent(quitLogin, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
+						.addGap(47)));
 		Left.setLayout(LeftLayout);
 
 		jPanel1.add(Left);
