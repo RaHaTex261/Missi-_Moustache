@@ -131,11 +131,11 @@ public class InterfaceUser extends JFrame {
 		JPopupMenu popupMenu = new JPopupMenu();
 
 		// Création des éléments du menu
-		JMenuItem modifyItem = new JMenuItem("Modifier");
+		//JMenuItem modifyItem = new JMenuItem("Modifier");
 		JMenuItem logoutItem = new JMenuItem("Déconnexion");
 
 		// Ajout des éléments au menu
-		popupMenu.add(modifyItem);
+		//popupMenu.add(modifyItem);
 		popupMenu.addSeparator(); // Séparateur pour les options
 		popupMenu.add(logoutItem);
 
@@ -151,14 +151,14 @@ public class InterfaceUser extends JFrame {
 			}
 		});
 
-		modifyItem.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
+		//modifyItem.addActionListener(new ActionListener() {
+		//	@Override
+			//public void actionPerformed(ActionEvent e) {
 
 				// Ouvrir l'interface de modification
-				new ModifierUser(); // Crée une nouvelle instance de la fenêtre de modification
-			}
-		});
+				//new ModifierUser(); // Crée une nouvelle instance de la fenêtre de modification
+			//}
+		//});
 
 		logoutItem.addActionListener(new ActionListener() {
 			@Override

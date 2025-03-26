@@ -119,31 +119,30 @@ public class LoginAdmin extends javax.swing.JFrame {
 
         javax.swing.GroupLayout LeftLayout = new javax.swing.GroupLayout(Left);
         LeftLayout.setHorizontalGroup(
-        	LeftLayout.createParallelGroup(Alignment.LEADING)
+        	LeftLayout.createParallelGroup(Alignment.TRAILING)
         		.addGroup(LeftLayout.createSequentialGroup()
+        			.addGap(61)
         			.addGroup(LeftLayout.createParallelGroup(Alignment.LEADING)
+        				.addComponent(loginEmail, GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
+        				.addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(loginPassword)
+        				.addComponent(jLabel3, GroupLayout.PREFERRED_SIZE, 227, GroupLayout.PREFERRED_SIZE)
         				.addGroup(LeftLayout.createSequentialGroup()
-        					.addContainerGap()
-        					.addComponent(jLabel1))
-        				.addGroup(LeftLayout.createSequentialGroup()
-        					.addContainerGap(67, Short.MAX_VALUE)
-        					.addGroup(LeftLayout.createParallelGroup(Alignment.LEADING, false)
-        						.addComponent(loginEmail, GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
-        						.addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE)
-        						.addComponent(loginPassword)
-        						.addComponent(jLabel3, GroupLayout.PREFERRED_SIZE, 227, GroupLayout.PREFERRED_SIZE)
-        						.addComponent(loginLogin, GroupLayout.PREFERRED_SIZE, 163, GroupLayout.PREFERRED_SIZE)))
-        				.addGroup(LeftLayout.createSequentialGroup()
-        					.addGap(133)
+        					.addComponent(loginLogin, GroupLayout.PREFERRED_SIZE, 163, GroupLayout.PREFERRED_SIZE)
+        					.addPreferredGap(ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
         					.addComponent(quitLogin)))
-        			.addContainerGap())
+        			.addGap(46))
+        		.addGroup(Alignment.LEADING, LeftLayout.createSequentialGroup()
+        			.addGap(114)
+        			.addComponent(jLabel1)
+        			.addContainerGap(155, Short.MAX_VALUE))
         );
         LeftLayout.setVerticalGroup(
         	LeftLayout.createParallelGroup(Alignment.LEADING)
         		.addGroup(LeftLayout.createSequentialGroup()
-        			.addGap(57)
+        			.addGap(46)
         			.addComponent(jLabel1)
-        			.addGap(18)
+        			.addGap(44)
         			.addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
         			.addPreferredGap(ComponentPlacement.RELATED)
         			.addComponent(loginEmail, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
@@ -151,11 +150,11 @@ public class LoginAdmin extends javax.swing.JFrame {
         			.addComponent(jLabel3, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
         			.addPreferredGap(ComponentPlacement.UNRELATED)
         			.addComponent(loginPassword, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-        			.addGap(18)
-        			.addComponent(loginLogin, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
-        			.addGap(58)
-        			.addComponent(quitLogin, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
-        			.addContainerGap(87, Short.MAX_VALUE))
+        			.addGap(46)
+        			.addGroup(LeftLayout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(loginLogin, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(quitLogin, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE))
+        			.addContainerGap(122, Short.MAX_VALUE))
         );
         Left.setLayout(LeftLayout);
 
@@ -225,8 +224,10 @@ public class LoginAdmin extends javax.swing.JFrame {
         }
         
         if(!(mail == null || mail.trim().isEmpty() || pass.trim().isEmpty() || a == 0 || c == 0)){
-            try{
-                String sql = "SELECT * from Accounts WHERE Email LIKE ? AND  Password LIKE ?;";
+        	
+        	
+        	try{
+                String sql = "SELECT * from Accounts WHERE Email LIKE ? AND  Password LIKE ? AND Role = 'Admin' ;";
                 pst = con.prepareStatement(sql);
                 pst.setString(1, loginEmail.getText());
                 pst.setString(2, h.doHashing(loginPassword.getText()));
@@ -236,7 +237,7 @@ public class LoginAdmin extends javax.swing.JFrame {
                 if(rs.next()){
                    
 
-                	InterfaceUser welcom = new InterfaceUser(loginEmail.getText());
+                	AdminInterface welcom = new AdminInterface();
                     welcom.setVisible(true);
                     welcom.pack();
                     welcom.setLocationRelativeTo(null);
@@ -246,22 +247,22 @@ public class LoginAdmin extends javax.swing.JFrame {
 
                 }
                 else{
-                    JOptionPane.showMessageDialog(null, "Nom d'utilisateur ou mot de passe incorrect !!!!!");
+                    JOptionPane.showMessageDialog(null, "Email ou Mots de Passe   INCORRECTE !");
                     try {
                         con.close();
-                        
+                        //loginLoginActionPerformed(evt);
                     } catch (SQLException ex) {
                        
                     }
 
                 }
             }catch(Exception e){
-
+            	//loginLoginActionPerformed(evt);
             }
-
+        	
             try {
                 con.close();
-                
+                //loginLoginActionPerformed(evt);
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Erreur lors de la fermeture !!");
             }
