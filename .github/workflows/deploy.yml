@@ -1,0 +1,97 @@
+name: Java CI/CD for SQLite and Swing Project
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      deploy:
+        description: 'Déployer l\'application'
+        required: false
+        default: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Set up Zulu JDK 17
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'zulu'
+      
+      - name: Cache Maven dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      
+      - name: Install SQLite JDBC Driver
+        run: |
+          mkdir -p ~/.m2/repository/org/xerial/sqlite-jdbc/3.42.0.0
+          wget https://github.com/xerial/sqlite-jdbc/releases/download/3.42.0.0/sqlite-jdbc-3.42.0.0.jar -O ~/.m2/repository/org/xerial/sqlite-jdbc/3.42.0.0/sqlite-jdbc-3.42.0.0.jar
+      
+      - name: Install JUnit 5
+        run: |
+          mkdir -p ~/.m2/repository/org/junit/platform
+          wget https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/1.8.2/junit-platform-console-standalone-1.8.2.jar -O junit-platform-console-standalone.jar
+      
+      - name: Compile Java files
+        run: |
+          mkdir -p bin
+          javac -d bin -cp ".:~/.m2/repository/org/xerial/sqlite-jdbc/3.42.0.0/sqlite-jdbc-3.42.0.0.jar:~/.m2/repository/org/junit/platform/junit-platform-console-standalone-1.8.2.jar" \
+          src/user/*.java \
+          src/Crud/*.java \
+          src/Admin/*.java
+      
+      - name: Run tests
+        run: |
+          java -cp ".:bin:~/.m2/repository/org/xerial/sqlite-jdbc/3.42.0.0/sqlite-jdbc-3.42.0.0.jar:~/.m2/repository/org/junit/platform/junit-platform-console-standalone-1.8.2.jar" \
+          org.junit.platform.console.ConsoleLauncher --scan-classpath
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy == 'true'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Set up Zulu JDK 17
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'zulu'
+      
+      - name: Build and package the application
+        run: |
+          mkdir -p bin
+          javac -d bin -cp ".:~/.m2/repository/org/xerial/sqlite-jdbc/3.42.0.0/sqlite-jdbc-3.42.0.0.jar:~/.m2/repository/org/junit/platform/junit-platform-console-standalone-1.8.2.jar" \
+          src/user/*.java \
+          src/Crud/*.java \
+          src/Admin/*.java
+      
+      - name: Create JAR package
+        run: |
+          jar -cvf my-app.jar -C bin/ .
+      
+      - name: Deploy to Server or Cloud
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SERVER_PRIVATE_KEY }}
+          script: |
+            cd /path/to/deployment/folder
+            ls -la
+            rm -rf *
+            cp /home/${USER}/my-app.jar .
+            chmod +x my-app.jar
+            ./my-app.jar &
