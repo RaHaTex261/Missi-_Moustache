@@ -7,11 +7,21 @@ import javax.swing.table.DefaultTableModel;
 
 import Crud.DbConnection;
 import Crud.Hashing;
+<<<<<<< HEAD
+=======
+import user.InterfaceUser;
+import user.SignupUser;
+>>>>>>> 784c5544ee9715468946d9f4d4d767259fb2ea52
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+<<<<<<< HEAD
+=======
+import java.util.logging.Level;
+import java.util.logging.Logger;
+>>>>>>> 784c5544ee9715468946d9f4d4d767259fb2ea52
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.awt.event.ActionListener;
@@ -21,6 +31,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
+<<<<<<< HEAD
+=======
+import java.awt.event.MouseEvent;
+>>>>>>> 784c5544ee9715468946d9f4d4d767259fb2ea52
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 
@@ -146,9 +160,38 @@ public class AdminInterface extends javax.swing.JFrame {
 		jScrollPane1.addMouseListener(new MouseAdapter() {
 			
 			private void tblMouseClicked(java.awt.event.MouseEvent evt) {
+<<<<<<< HEAD
 
 			}
 			
+=======
+				//int currentRow = tbl.getSelectedRow();
+				//System.out.println(currentRow);
+				
+				//NameAdminInterface.setText(tbl.getValueAt(currentRow, 1).toString()); 
+				//EmailAdminInterface.setText(tbl.getValueAt(currentRow, 2).toString());
+				//PasswordAdminInterface.setText(tbl.getValueAt(currentRow, 3).toString());
+			}
+			
+			/*
+			@Override
+			
+			public void mouseClicked(MouseEvent e) {
+				int currentRow = tbl.getSelectedRow();
+
+				NameAdminInterface.setText(tbl.getValueAt(currentRow, 1).toString()); 
+				EmailAdminInterface.setText(tbl.getValueAt(currentRow, 2).toString());
+				PasswordAdminInterface.setText(tbl.getValueAt(currentRow, 3).toString());
+				
+				if(currentRow != -1 )
+					JOptionPane.showMessageDialog(null, "OK");
+				
+				//System.out.println(currentRow);
+				//JOptionPane.showMessageDialog(null, "row = " + currentRow);
+				//jLabel1.setText(""+currentRow);
+			}
+			*/
+>>>>>>> 784c5544ee9715468946d9f4d4d767259fb2ea52
 		});
 		
 		
@@ -725,4 +768,8 @@ public class AdminInterface extends javax.swing.JFrame {
 	        }
 	    });
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 784c5544ee9715468946d9f4d4d767259fb2ea52
